@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Survey Form</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: rgb(53, 167, 212);
+      }
+
+      h1 {
+        text-align: center;
+        color: #fff;
+        margin-top: 30px;
+        text-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+      }
+      .container {
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        width: 500px;
+        padding: 30px 20px 20px 20px;
+        margin: 0 auto;
+        background-color: rgb(246 246 246);
+        font-weight: 500;
+      }
+      .form-group {
+        margin-bottom: 25px;
+      }
+      label {
+        display: block;
+        margin-bottom: 15px;
+      }
+      .contents {
+        display: grid;
+      }
+      .row {
+        display: flex;
+        justify-content: flex-start;
+      }
+      .row label {
+        width: 50%;
+      }
+      .row #name,
+      .row #email {
+        height: 35px;
+        font-size: 16px;
+      }
+      .row #name {
+        width: 220px;
+        margin-right: 10px;
+      }
+      .row #email {
+        width: 242px;
+        margin-left: 12px;
+      }
+      input[type="radio"] {
+        margin-left: 12px;
+      }
+      #service {
+        width: 99%;
+        font-size: 16px;
+      }
+      input[type="submit"],
+      input[type="reset"] {
+        width: 110px;
+        height: 42px;
+        text-transform: uppercase;
+      }
+      input[type="submit"] {
+        background-color: rgb(53, 167, 212);
+        color: white;
+        border: none;
+      }
+      #popup {
+        display: none;
+        background: rgba(0, 0, 0, 0.7);
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 999;
+        text-align: center;
+      }
+
+      #popup-content {
+        background: #fff;
+        border: 1px solid #ccc;
+        max-width: 400px;
+        margin: 100px auto;
+        padding: 20px;
+        position: relative;
+      }
+
+      #popup-close {
+        position: absolute;
+        top: 5px;
+        right: 10px;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Customer Survey Form</h1>
+    <div class="container">
+      <form id="surveyForm" onsubmit="return submitForm();">
+        <div class="form-group contents">
+          <div class="row">
+            <label for="name">Name:</label>
+            <label for="email">Email:</label>
+          </div>
+          <div class="row">
+            <input type="text" id="name" required />
+
+            <input type="email" id="email" required />
+          </div>
+        </div>
+        <div class="form-group">
+          <label
+            >Is this first time You are using our products & service?
+          </label>
+          <input type="radio" name="ourProduct" value="Yes" required /> Yes
+          <input type="radio" name="ourProduct" value="No" required /> No
+        </div>
+        <div class="form-group">
+          <label>Would you suggest to Your friends and colleague? </label>
+          <input type="radio" name="suggestion" value="Yes" required /> Yes
+          <input type="radio" name="suggestion" value="No" required /> No
+        </div>
+        <div class="form-group">
+          <label>How satisfied are you with our company overall? </label>
+          <input type="radio" name="satisfy" value="Yes" required /> Satisfied
+          <input type="radio" name="satisfy" value="No" required /> Undecided
+          <input type="radio" name="satisfy" value="No" required /> Unsatisfied
+        </div>
+        <div class="form-group">
+          <label for="service"
+            >Do you have suggestion to improve our service?</label
+          >
+          <textarea id="service" rows="8" required></textarea>
+        </div>
+        <div class="form-group">
+          <input type="submit" value="Submit" />
+          <input type="reset" value="Reset" />
+        </div>
+      </form>
+    </div>
+    <div id="popup">
+      <div id="popup-content">
+        <span id="popup-close" onclick="closePopup()">&times;</span>
+        <h2>Survey Form Data</h2>
+        <div id="popup-data">
+          <!-- Selected data will be displayed here -->
+        </div>
+      </div>
+    </div>
+
+    <script>
+      function submitForm() {
+        // Gather form data
+        var formData = {
+          Name: document.getElementById("name").value,
+          Email: document.getElementById("email").value,
+          "Our Product Usage for first time": getRadioValue("ourProduct"),
+          "Suggestion to friends & Colleague": getRadioValue("suggestion"),
+          "satisfication of Our Company": getRadioValue("satisfy"),
+          "Service Improvement Commands":
+            document.getElementById("service").value,
+        };
+
+        // Display data in the popup
+        var popupContent = document.getElementById("popup-data");
+        popupContent.innerHTML = "";
+        for (var key in formData) {
+          var label = key + ":";
+          var value = formData[key];
+          popupContent.innerHTML +=
+            "<p><strong>" + label + "</strong> " + value + "</p>";
+        }
+
+        // Show the popup
+        document.getElementById("popup").style.display = "block";
+
+        // Reset the form
+        document.getElementById("surveyForm").reset();
+
+        return false; // Prevent form submission
+      }
+
+      function getRadioValue(name) {
+        var radios = document.getElementsByName(name);
+        for (var i = 0; i < radios.length; i++) {
+          if (radios[i].checked) {
+            return radios[i].value;
+          }
+        }
+        return "";
+      }
+
+      function closePopup() {
+        document.getElementById("popup").style.display = "none";
+      }
+    </script>
+  </body>
+</html>

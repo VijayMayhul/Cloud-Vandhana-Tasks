@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Reverse String</title>
+    <style>
+      body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      main {
+        border: 5px solid black;
+        padding: 25px;
+        margin-top: 50px;
+      }
+      .but {
+        display: flex;
+        justify-content: space-around;
+      }
+      button {
+        width: 100px;
+        height: 30px;
+      }
+      #revstr,
+      #word {
+        width: 200px;
+      }
+    </style>
+    <script>
+      function press() {
+        let str = document.getElementById("word").value;
+        let size = str.length;
+        let revStr = "";
+        for (let i = size - 1; i >= 0; i--) {
+          revStr += str.charAt(i);
+        }
+        document.getElementById("revstr").value = revStr;
+      }
+      function del() {
+        document.getElementById("word").value = "";
+        document.getElementById("revstr").value = "";
+      }
+    </script>
+  </head>
+  <body>
+    <main>
+      <label for="word">Enter the Sentence : </label>
+      <input
+        type="text"
+        placeholder="Enter the sentence"
+        id="word"
+      /><br /><br />
+      <label for="revstr">Reversed Sentence : </label>
+      <input type="text" id="revstr" readonly /><br /><br />
+      <div class="but">
+        <button onclick="del()">Clear</button>
+        <button onclick="press()">Submit</button>
+      </div>
+    </main>
+  </body>
+</html>

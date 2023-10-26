@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Descending Array</title>
+    <script>
+      let size = parseInt(prompt("Enter the array size :"));
+      let ar = new Array(size);
+      for (let i = 0; i < size; i++) {
+        ar[i] = parseInt(prompt("Enter array value :"));
+      }
+      for (let i = 0; i < size - 1; i++) {
+        for (let j = 0; j < size - 1 - i; j++) {
+          if (ar[j] < ar[j + 1]) {
+            let temp = ar[j];
+            ar[j] = ar[j + 1];
+            ar[j + 1] = temp;
+          }
+        }
+      }
+      for (let i = 0; i < size; i++) {
+        console.log(ar[i]);
+      }
+    </script>
+  </head>
+  <body></body>
+</html>
